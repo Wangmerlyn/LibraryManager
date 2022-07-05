@@ -16,13 +16,13 @@ password
 
 # 管理员界面
 ## 字段：**\admin\<adminid>**
-后端到前端json对象：
+json对象：
 ### 管理员编号
 #### 键
 AdminId
 #### 值
 数据类型为 **数字**
-### 管理员编号
+### 管理员姓名
 #### 键
 AdminName
 #### 值
@@ -214,6 +214,257 @@ Brief
 
 # 学生管理模块
 ## 字段：**\admin\student**
+json对象：
+### 学生编号
+#### 键
+AdminId
+#### 值
+数据类型为 **数字**
+### 学生姓名
+#### 键
+AdminName
+#### 值
+数据类型为 **字符串**
+
+# 借书证办理界面
+## 字段：**\admin\student\libcard**
+json对象：
+### 学号
+#### 键
+StudentID
+#### 值
+**数字**
+### 姓名
+#### 键
+StudentName
+#### 值
+**字符串**
+### 密码
+#### 键
+Password
+#### 值
+**字符串**
+### 学院ID
+#### 键
+AcademyID
+#### 值
+**字符串**
+### 班级ID
+#### 键
+ClassID
+#### 值
+**字符串**
+### 性别
+#### 键
+Sex
+#### 值
+**字符串**
+### 电话
+#### 键
+Telephone
+#### 值
+**字符串**
+### Email
+#### 键
+Email
+#### 值
+**字符串**
+### 已借书数量
+#### 键
+LendedNum
+#### 值
+**数字**
+### 创建日期
+#### 键
+CreateDate
+#### 值
+**字符串**
+
+# 借书证办理成功界面
+## 字段：**\admin\student\libcard\sucess**
+
+# 借书证办理失败界面
+## 字段：**\admin\student\libcard\fail**
+
+# 借书证注销界面
+## 字段：**\admin\student\libcardLogout**
+json对象：
+### 学号
+#### 键
+StudentID
+#### 值
+**数字**
+### 姓名
+#### 键
+StudentName
+#### 值
+**字符串**
+### 密码
+#### 键
+Password
+#### 值
+**字符串**
+### 学院ID
+#### 键
+AcademyID
+#### 值
+**字符串**
+### 班级ID
+#### 键
+ClassID
+#### 值
+**字符串**
+### 性别
+#### 键
+Sex
+#### 值
+**字符串**
+### 电话
+#### 键
+Telephone
+#### 值
+**字符串**
+### Email
+#### 键
+Email
+#### 值
+**字符串**
+### 已借书数量
+#### 键
+LendedNum
+#### 值
+**数字**
+### 创建日期
+#### 键
+CreateDate
+#### 值
+**字符串**
+
+# 借书证注销成功界面
+## 字段：**\admin\student\libcardLogout\sucess**
+
+# 借书证注销失败界面
+## 字段：**\admin\student\libcardLogout\fail**
+
+# 读者信息修改界面
+## 字段：**\admin\student\libcardModify**
+json对象：
+### 学号
+#### 键
+StudentID
+#### 值
+**数字**
+### 姓名
+#### 键
+StudentName
+#### 值
+**字符串**
+### 密码
+#### 键
+Password
+#### 值
+**字符串**
+### 学院ID
+#### 键
+AcademyID
+#### 值
+**字符串**
+### 班级ID
+#### 键
+ClassID
+#### 值
+**字符串**
+### 性别
+#### 键
+Sex
+#### 值
+**字符串**
+### 电话
+#### 键
+Telephone
+#### 值
+**字符串**
+### Email
+#### 键
+Email
+#### 值
+**字符串**
+### 已借书数量
+#### 键
+LendedNum
+#### 值
+**数字**
+### 创建日期
+#### 键
+CreateDate
+#### 值
+**字符串**
+
+# 读者信息修改成功界面
+## 字段：**\admin\student\libcardModify\sucess**
+
+# 读者信息修改失败界面
+## 字段：**\admin\student\libcardModify\fail**
+
+# 借书证挂失界面
+## 字段：**\admin\student\libcardLoss**
+json对象：
+### 学号
+#### 键
+StudentID
+#### 值
+**数字**
+### 姓名
+#### 键
+StudentName
+#### 值
+**字符串**
+### 密码
+#### 键
+Password
+#### 值
+**字符串**
+### 学院ID
+#### 键
+AcademyID
+#### 值
+**字符串**
+### 班级ID
+#### 键
+ClassID
+#### 值
+**字符串**
+### 性别
+#### 键
+Sex
+#### 值
+**字符串**
+### 电话
+#### 键
+Telephone
+#### 值
+**字符串**
+### Email
+#### 键
+Email
+#### 值
+**字符串**
+### 已借书数量
+#### 键
+LendedNum
+#### 值
+**数字**
+### 创建日期
+#### 键
+CreateDate
+#### 值
+**字符串**
+
+# 借书证挂失成功界面
+## 字段：**\admin\student\libcardLoss\sucess**
+
+# 借书证挂失失败界面
+## 字段：**\admin\student\libcardLoss\fail**
 
 # 借阅信息管理模块
 ## 字段：**\admin\borrow**

@@ -47,6 +47,12 @@
     redirect: '/welcome',
   },
   {
+    path: '/borrow',
+    icon: 'table',
+    name: '借书',
+    component: './Borrow',
+  },
+  {
     component: './404',
   },
 ];

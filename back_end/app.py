@@ -107,7 +107,8 @@ def login():
             error = 'Invalid password'
         else:
             session['user_id'] = app.config['ADMIN_NAME']
-            return redirect(url_for('admin'))
+            return jsonify({"success": True})
+            #return redirect(url_for('admin'))
     else:
         student = Students.query.filter_by(student_name = request.json['username']).first()
         if student is None:
@@ -116,8 +117,10 @@ def login():
             error = 'Invalid password'
         else:
             session['user_id'] = student.student_id
-            redirect(url_for('student'))
-    return render_template('login.html', error=error)
+            return jsonify({"success": True})
+            #return redirect(url_for('student'))
+    return jsonify({"success": False})
+    #return render_template('login.html', error=error)
 
 #登出界面
 @app.route('/logout')
@@ -141,12 +144,16 @@ def student():
 @app.route('/admin/book', methods=['GET'])
 def admin_books():
     all_books = Books.query.all()
-    return render_template('admin_books.html', books=all_books)
+    results = books_schema.dump(all_books)
+    return jsonify(results)
+    #return render_template('admin_books.html', books=all_books)
 
 @app.route('/admin/book/<id>/', methods=['GET'])
 def admin_book(id):
     book = Books.query.get(id)
-    return render_template('admin_book.html', book=book)
+    results = book_schema.dump(book)
+    return jsonify(results)
+    #return render_template('admin_book.html', book=book)
 
 @app.route('/admin/book/add', methods=['POST'])
 def add_book():
@@ -180,8 +187,10 @@ def add_book():
                      publication_date=publication_date, publisher=publisher)
         db.session.add(book)
         db.session.commit()
-        return redirect(url_for('admin_books'))
-    return render_template('admin_book_add.html', error=error)
+        return jsonify({"success": True})
+        #return redirect(url_for('admin_books'))
+    return jsonify({"success": False})
+    #return render_template('admin_book_add.html', error=error)
 
 
 @app.route('/admin/book/delete', methods=['POST'])
@@ -194,8 +203,10 @@ def delete_book():
     else:
         db.session.delete(book)
         db.session.commit()
-        return redirect(url_for('admin_books'))
-    return render_template('admin_book_delete.html', error=error)
+        return jsonify({"success": True})
+        #return redirect(url_for('admin_books'))
+    return jsonify({"success": False})
+    #return render_template('admin_book_delete.html', error=error)
 
 @app.route('/admin/book/modify', methods=['POST'])
 def update_book():
@@ -228,19 +239,25 @@ def update_book():
             book.publication_date = request.json['publication_date']
             book.publisher = request.json['publisher']
             db.session.commit()
-            return redirect(url_for('admin_books'))
-    return render_template('admin_book_update.html', error=error)
+            return jsonify({"success": True})
+            #return redirect(url_for('admin_books'))
+    return jsonify({"success": False})
+    #return render_template('admin_book_update.html', error=error)
 
 #2.2管理员学生管理 /admin/student
 @app.route('/admin/student', methods=['GET'])
 def admin_students():
     all_students = Students.query.all()
-    return render_template('admin_students.html', students=all_students)
+    results = students_schema.dump(all_students)
+    return jsonify(results)
+    #return render_template('admin_students.html', students=all_students)
 
 @app.route('/admin/student/<id>/', methods=['GET'])
 def admin_student(id):
     student = Students.query.get(id)
-    return render_template('admin_student.html', student=student)
+    results = student_schema.dump(student)
+    return jsonify(results)
+    #return render_template('admin_student.html', student=student)
 
 # 增
 @app.route('/admin/student/libcard', methods=['POST'])
@@ -268,8 +285,10 @@ def add_student():
                            college=college, email=email, sex=sex, tel=tel)
         db.session.add(student)
         db.session.commit()
-        return redirect(url_for('admin_students'))
-    return render_template('student_add.html', error=error)
+        return jsonify({"success": True})
+        #return redirect(url_for('admin_students'))
+    return jsonify({"success": False})
+    #return render_template('student_add.html', error=error)
 
 # 删
 @app.route('/admin/student/libcardLogout', methods=['POST'])
@@ -282,8 +301,10 @@ def delete_student():
     else:
         db.session.delete(student)
         db.session.commit()
-        return redirect(url_for('admin_students'))
-    return render_template('student_delete.html',error=error)
+        return jsonify({"success": True})
+        #return redirect(url_for('admin_students'))
+    return jsonify({"success": False})
+    #return render_template('student_delete.html',error=error)
 
 # 改
 @app.route('/admin/student/libcardModify', methods=['POST'])
@@ -310,8 +331,10 @@ def update_student():
             student.sex = request.json['sex']
             student.tel = request.json['tel']
             db.session.commit()
-            return redirect(url_for('admin_students'))
-    return render_template('student_update.html',error=error)
+            return jsonify({"success": True})
+            #return redirect(url_for('admin_students'))
+    return jsonify({"success": False})
+    #return render_template('student_update.html',error=error)
 
 
 #3学生
@@ -339,10 +362,12 @@ def student_book_borrow():
                             data_return=return_time)
             db.session.add(borrow)
             db.session.commit()
-            return redirect(url_for('student_book_borrow'))
+            return jsonify({"success": True})
+            #return redirect(url_for('student_book_borrow'))
         else:
             error = 'The book has already borrowed.'
-    return render_template('student_book_borrow.html', error=error)
+    return jsonify({"success": False})
+    #return render_template('student_book_borrow.html', error=error)
 
 @app.route('/student/book/return', methods =['POST'])
 def student_book_return():
@@ -358,14 +383,18 @@ def student_book_return():
             borrow = Borrow.query.get(request.json['bookID'])
             db.session.delete(borrow)
             db.session.commit()
-            return redirect(url_for('student_book_return'))
-    return render_template('student_book_borrow.html', error=error)
+            return jsonify({"success": True})
+            #return redirect(url_for('student_book_return'))
+    return jsonify({"success": False})
+    #return render_template('student_book_borrow.html', error=error)
 
 #3.2学生信息管理
 @app.route('/student/info', methods=['GET'])
 def student_info():
     student = Students.query.get(g.user)
-    return render_template('student_info.html', student=student)
+    results = student_schema.dump(student)
+    return jsonify(results)
+    #return render_template('student_info.html', student=student)
 
 #信息修改
 @app.route('/student/libcardModify', methods=['POST'])
@@ -387,8 +416,10 @@ def student_libcardModify():
         student.sex = request.json['sex']
         student.tel = request.json['tel']
         db.session.commit()
-        return redirect(url_for('student'))
-    return render_template('student_libcardModify.html', error=error)
+        return jsonify({"success": True})
+        #return redirect(url_for('student'))
+    return jsonify({"success": False})
+    #return render_template('student_libcardModify.html', error=error)
 
 #4.检索
 @app.route('/search', methods=['GET', 'POST'])
@@ -397,13 +428,16 @@ def reader_query():
     error = None
     books = None
     if request.method == 'POST':
-        if (not request.form['BookNum']) and (not request.form['BookName']) and (not request.form['Writer']) and (not request.form['SortID']):
+        if (not request.form['bookID']) and (not request.form['BookName']) and (not request.form['Writer']) and (not request.form['SortID']):
             success = True
-            sqlcmd = ('select * from books where book_name LIKE %{}%').format(request.form['Booknum'])
+            sqlcmd = ('select * from books where bookID LIKE %{}%').format(request.form['bookID'])
             books = db.session.execute(sqlcmd)
+            results = books_schema.dump(books)
+            return jsonify(results)
         else:
             success = False
-    return render_template('reader_query.html', books=books, error=error)
+    return jsonify({"success": False})
+    #return render_template('reader_query.html', books=books, error=error)
 
 
 

@@ -102,7 +102,7 @@ def index():
 @app.route('/login', methods=['POST'])
 def login():
     error = None
-    if request.json['username'] != app.config["ADMIN_NAME"]:
+    if request.json['username'] == app.config["ADMIN_NAME"]:
         if request.json['password'] != app.config['ADMIN_PWD']:
             error = 'Invalid password'
         else:

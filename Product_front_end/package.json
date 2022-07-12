@@ -34,9 +34,15 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js",
-    "**/*.{js,jsx,tsx,ts,less,md,json}": ["prettier --write"]
+    "**/*.{js,jsx,tsx,ts,less,md,json}": [
+      "prettier --write"
+    ]
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 10"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ],
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "1.1.1",
@@ -60,6 +66,7 @@
     "@types/express": "^4.17.0",
     "@types/history": "^4.7.0",
     "@types/jest": "^26.0.0",
+    "@types/jquery": "^3.5.14",
     "@types/lodash": "^4.14.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
@@ -82,5 +89,7 @@
     "umi-presets-pro": "^1.0.1",
     "umi-serve": "^1.9.10"
   },
-  "engines": { "node": ">=12.0.0" }
+  "engines": {
+    "node": ">=12.0.0"
+  }
 }

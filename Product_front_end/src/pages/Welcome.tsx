@@ -43,7 +43,7 @@ const Welcome: React.FC = () => {
           <div className="flex flex-wrap">
 
               <div className="w-100pc md-w-40pc p-6">
-                  <a href="borrow"
+                  <a href="search/info"
                       className="block no-underline p-5 br-8 hover-bg-indigo-lightest-10 hover-scale-up-1 ease-300">
                       <img className="w-100pc" src={borrow_book_img} alt="" />
                       <p className="fw-600 white fs-m3 mt-3">借书

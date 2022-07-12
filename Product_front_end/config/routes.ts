@@ -47,10 +47,10 @@
     redirect: '/welcome',
   },
   {
-    path: '/borrow',
+    path: '/search/info',
     icon: 'table',
-    name: '借书',
-    component: './Borrow',
+    name: '图书信息界面',
+    component: './Info',
   },
   {
     component: './404',

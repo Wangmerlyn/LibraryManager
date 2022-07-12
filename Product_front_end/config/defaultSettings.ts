@@ -4,6 +4,7 @@ const Settings: LayoutSettings & {
   pwa?: boolean;
   logo?: string;
 } = {
+  "title": "Library Manager",
   "navTheme": "realDark",
   "primaryColor": "#1890ff",
   "layout": "mix",
@@ -11,8 +12,8 @@ const Settings: LayoutSettings & {
   "fixedHeader": false,
   "fixSiderbar": true,
   "pwa": false,
-  "logo": "https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg",
-  "headerHeight": 56
+  "headerHeight": 56,
+  "headerTheme" : 'dark',
 };
 
 export default Settings;

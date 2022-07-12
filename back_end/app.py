@@ -23,6 +23,7 @@ ma = Marshmallow(app)
 
 app.config['ADMIN_NAME'] = 'admin'
 app.config['ADMIN_PWD'] = '123456'
+app.config['ADMIN_ID'] = '0'
 
 '''
     开始部分 类定义
@@ -94,20 +95,19 @@ def before_request():
 #欢迎界面
 @app.route("/")
 def index():
+    #return jsonify({"success": False})
     return render_template('index.html')
 
 #登录界面
 @app.route('/login', methods=['POST'])
 def login():
     error = None
-    if request.form['item'] == 'admin':
-        if request.json['username'] != app.config["ADMIN_NAME"]:
-            error = 'Invalid username'
-        elif request.json['password'] != app.config['ADMIN_PWD']:
+    if request.json['username'] != app.config["ADMIN_NAME"]:
+        if request.json['password'] != app.config['ADMIN_PWD']:
             error = 'Invalid password'
         else:
-            session['user_id'] = app.config['ADMIN_NAME']
-            return jsonify({"success": True})
+            session['user_id'] = app.config['ADMIN_ID']
+            return jsonify({"identity": "admin", "success": True})
             #return redirect(url_for('admin'))
     else:
         student = Students.query.filter_by(student_name = request.json['username']).first()
@@ -117,9 +117,9 @@ def login():
             error = 'Invalid password'
         else:
             session['user_id'] = student.student_id
-            return jsonify({"success": True})
+            return jsonify({"identity": "user", "success": True})
             #return redirect(url_for('student'))
-    return jsonify({"success": False})
+    return jsonify({"identity": "user", "success": False})
     #return render_template('login.html', error=error)
 
 #登出界面
@@ -227,7 +227,7 @@ def update_book():
         elif not request.json['publisher']:
             error = 'You should input the publisher'
         else:
-            book.bookID = request.json['bookID']
+            book.bookID = request.json['BookID']
             book.title = request.json['title']
             book.authors = request.json['authors']
             book.average_rating = request.json['authors']
@@ -316,10 +316,10 @@ def update_student():
     if student is None:
         error = 'no this student'
     else:
-        if not request.json['student_name']:
-            error = 'You should input the student name'
-        elif not request.json['student_id']:
+        if not request.json['student_id']:
             error = 'You should input the student id'
+        elif not request.json['student_name']:
+            error = 'You should input the student name'
         elif not request.json['pwd']:
             error = 'You should input the passward'
         elif not request.json['college']:
@@ -404,10 +404,10 @@ def student_info():
 @app.route('/student/libcardModify', methods=['POST'])
 def student_libcardModify():
     student = Students.query.get(g.user)
-    if not request.json['student_name']:
-        error = 'You should input the student name'
-    elif not request.json['student_id']:
+    if not request.json['student_id']:
         error = 'You should input the student id'
+    elif not request.json['student_name']:
+        error = 'You should input the student name'
     elif not request.json['pwd']:
         error = 'You should input the passward'
     elif not request.json['college']:

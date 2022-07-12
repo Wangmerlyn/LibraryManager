@@ -53,7 +53,7 @@ class Books(db.Model):
 class BookSchema(ma.Schema):
     class Meta:
         fields = ('bookID', 'title', 'authors', 'average_rating', 'isbn', 'isbn13', 'language_code', 'num_pages',
-                  'ratings_count', 'text_reviews_count', 'publicati on_date', 'publisher')
+                  'ratings_count', 'text_reviews_count', 'publication_date', 'publisher')
 
 book_schema = BookSchema()
 books_schema = BookSchema(many=True)
@@ -227,6 +227,7 @@ def update_book():
         elif not request.json['publisher']:
             error = 'You should input the publisher'
         else:
+            book.bookID = request.json['bookID']
             book.title = request.json['title']
             book.authors = request.json['authors']
             book.average_rating = request.json['authors']
@@ -317,6 +318,8 @@ def update_student():
     else:
         if not request.json['student_name']:
             error = 'You should input the student name'
+        elif not request.json['student_id']:
+            error = 'You should input the student id'
         elif not request.json['pwd']:
             error = 'You should input the passward'
         elif not request.json['college']:
@@ -324,6 +327,7 @@ def update_student():
         elif not request.json['email']:
             error = 'You should input the email'
         else:
+            student.student_id = request.json['student_id']
             student.student_name = request.json['student_name']
             student.pwd = request.json['pwd']
             student.college = request.json['college']
@@ -402,6 +406,8 @@ def student_libcardModify():
     student = Students.query.get(g.user)
     if not request.json['student_name']:
         error = 'You should input the student name'
+    elif not request.json['student_id']:
+        error = 'You should input the student id'
     elif not request.json['pwd']:
         error = 'You should input the passward'
     elif not request.json['college']:
@@ -409,6 +415,7 @@ def student_libcardModify():
     elif not request.json['email']:
         error = 'You should input the email'
     else:
+        student.student_id = request.json['student_id']
         student.student_name = request.json['student_name']
         student.pwd = request.json['pwd']
         student.college = request.json['college']

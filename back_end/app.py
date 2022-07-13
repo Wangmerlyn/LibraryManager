@@ -38,18 +38,17 @@ class Books(db.Model):
     # 定义表名
     __tablename__ = 'lala'
     # 定义列对象
-    bookID = db.Column(db.Integer, primary_key=True,  autoincrement=True)
-    title = db.Column(db.VARCHAR(254), nullable=False)
-    authors = db.Column(db.VARCHAR(750), nullable=False)
-    average_rating = db.Column(db.VARCHAR(93), nullable=False)
-    isbn = db.Column(db.VARCHAR(10), nullable=False)
-    isbn13 = db.Column(db.VARCHAR(13), nullable=False)
-    language_code = db.Column(db.VARCHAR(13), nullable=False)
-    num_pages = db.Column(db.VARCHAR(11), nullable=False)
-    ratings_count = db.Column(db.VARCHAR(13), nullable=False)
-    text_reviews_count = db.Column(db.VARCHAR(18), nullable=False)
-    publication_date = db.Column(db.VARCHAR(16), nullable=False)
-    publisher = db.Column(db.VARCHAR(67), nullable=False)
+    bookID = db.Column(db.Text(), nullable=False)
+    title = db.Column(db.Text(), nullable=False)
+    authors = db.Column(db.Text(), nullable=False)
+    isbn10 = db.Column(db.Text(), nullable=False)
+    categories = db.Column(db.Text(), nullable=False)
+    description = db.Column(db.Text(), nullable=False)
+    publication_date = db.Column(db.Integer, nullable=False)
+    average_rating = db.Column(db.Text(), nullable=False)
+    num_pages = db.Column(db.Integer, nullable=False)
+    ratings_count = db.Column(db.Integer, nullable=False)
+
 
 class BookSchema(ma.Schema):
     class Meta:
@@ -157,34 +156,41 @@ def admin_book(id):
 
 @app.route('/admin/book/add', methods=['POST'])
 def add_book():
-    if not request.json['BookID']:
+    if not request.json['bookID']:
         error = 'You should input the BookID'
     elif not request.json['authors']:
         error = 'You should input the authors'
     elif not request.json['title']:
         error = 'You should input the title'
+    elif not request.json['isbn10']:
+        error = 'You should input the isbn10'
+    elif not request.json['categories']:
+        error = 'You should input the categories'
+    elif not request.json['description']:
+        error = 'You should input the description'
     elif not request.json['publication_date']:
         error = 'You should input the publication_date'
-    elif not request.json['publisher']:
-        error = 'You should input the publisher'
+    elif not request.json['averaging_rating']:
+        error = 'You should input the averaging_rating'
+    elif not request.json['num_pages']:
+        error = 'You should input the num_pages'
+    elif not request.json['rating_count']:
+        error = 'You should input the rating_count'
     else:
         bookID = request.json['bookID']
         title = request.json['title']
         authors = request.json['authors']
-        average_rating = request.json['authors']
-        isbn = request.json['authors']
-        isbn13 = request.json['isbn13']
-        language_code = request.json['language_code']
+        isbn10 = request.json['isbn10']
+        categories = request.json['categories']
+        description = request.json['description']
+        publication_date = request.json['publication_date']
+        average_rating = request.json['averaging_rating']
         num_pages = request.json['num_pages']
         ratings_count = request.json['ratings_count']
-        text_reviews_count = request.json['text_reviews_count']
-        publication_date = request.json['publication_date']
-        publisher = request.json['publisher']
 
-        book = Books(bookID=bookID, title=title, authors=authors, average_rating=average_rating,
-                     isbn=isbn, isbn13=isbn13, language_code=language_code,
-                     num_pages=num_pages, ratings_count=ratings_count, text_reviews_count=text_reviews_count,
-                     publication_date=publication_date, publisher=publisher)
+        book = Books(bookID=bookID, title=title, authors=authors, isbn10=isbn10,
+                     categories=categories, description=description,  publication_date=publication_date,
+                     average_rating=average_rating, num_pages=num_pages, ratings_count=ratings_count)
         db.session.add(book)
         db.session.commit()
         return jsonify({"success": True})
@@ -216,29 +222,37 @@ def update_book():
     if book is None:
         error = 'no this book'
     else:
-        if not request.json['BookID']:
+        if not request.json['bookID']:
             error = 'You should input the BookID'
         elif not request.json['authors']:
             error = 'You should input the authors'
         elif not request.json['title']:
             error = 'You should input the title'
+        elif not request.json['isbn10']:
+            error = 'You should input the isbn10'
+        elif not request.json['categories']:
+            error = 'You should input the categories'
+        elif not request.json['description']:
+            error = 'You should input the description'
         elif not request.json['publication_date']:
             error = 'You should input the publication_date'
-        elif not request.json['publisher']:
-            error = 'You should input the publisher'
+        elif not request.json['averaging_rating']:
+            error = 'You should input the averaging_rating'
+        elif not request.json['num_pages']:
+            error = 'You should input the num_pages'
+        elif not request.json['rating_count']:
+            error = 'You should input the rating_count'
         else:
-            book.bookID = request.json['BookID']
+            book.bookID = request.json['bookID']
             book.title = request.json['title']
             book.authors = request.json['authors']
-            book.average_rating = request.json['authors']
-            book.isbn = request.json['authors']
-            book.isbn13 = request.json['isbn13']
-            book.language_code = request.json['language_code']
+            book.isbn10 = request.json['isbn10']
+            book.categories = request.json['categories']
+            book.description = request.json['description']
+            book.publication_date = request.json['publication_date']
+            book.average_rating = request.json['averaging_rating']
             book.num_pages = request.json['num_pages']
             book.ratings_count = request.json['ratings_count']
-            book.text_reviews_count = request.json['text_reviews_count']
-            book.publication_date = request.json['publication_date']
-            book.publisher = request.json['publisher']
             db.session.commit()
             return jsonify({"success": True})
             #return redirect(url_for('admin_books'))

@@ -10,6 +10,7 @@ pip install Flask
 pip install Flask-SQLAlchemy
 pip install mysqlclient
 pip install flask-marshmallow
+pip install pymysql
 ```
 
 ## 功能

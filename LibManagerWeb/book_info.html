@@ -1,0 +1,181 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hook</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shorthandcss@1.1.1/dist/shorthand.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Muli:200,300,400,500,600,700,800,900&display=swap" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+</head> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book information</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shorthandcss@1.1.1/dist/shorthand.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Muli:200,300,400,500,600,700,800,900&display=swap" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+    <style>
+        section {
+            margin: 60px;
+        }
+    </style>
+</head>
+
+<body class="bg-black muli">
+
+
+    <nav class="w-100pc flex flex-column md-flex-row md-px-10 py-5 bg-black">
+        <div class="flex justify-between">
+            <a href="#" class="flex items-center p-2 mr-4 no-underline">
+                <img class="max-h-l3 w-auto" src="img/logo1.jpg">
+            </a>
+            <a data-toggle="toggle-nav" data-target="#nav-items" href="#"
+                class="flex items-center ml-auto md-hidden indigo-lighter opacity-50 hover-opacity-100 ease-300 p-1 m-3">
+                <i data-feather="menu"></i>
+            </a>
+        </div>
+        <div id="nav-items" class="hidden flex sm-w-100pc flex-column md-flex md-flex-row md-justify-end items-center">
+            <a href="index.html" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">Home</a>
+            <a href="#features" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">Features</a>
+            <a href="#pricing" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">Pricing</a>
+            <a href="#blog" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">Blog</a>
+
+        </div>
+    </nav>
+    <!-- <div class="py-l5"><input type="text" placeholder="Name"> </div>
+    <input class="search-input" id="txt_SearchText" name="txt_SearchText" type="text" autocomplete="off"
+        placeholder="中文文献、外文文献" value="" maxlength="100" style="color: rgb(198, 32, 32);"> -->
+
+
+    <section margin:0px 5px>
+
+
+        <div class="br-8 mt-10 inline-flex" border-top="50">
+            <input type="text"
+                class="input-lg half bw-0 fw-200 bg-indigo-lightest-10 white ph-indigo-lightest focus-white opacity-80 fs-s3 py-5 min-w-25vw br-r-0"
+                placeholder="书籍名称">
+            <button
+                class="button-lg bg-indigo-lightest-20 indigo-lightest focus-white fw-300 fs-s3 mr-0 br-l-0">查询</button>
+        </div>
+
+        <div style="color:#dcd9de" class="py-l3">
+            <!-- <h1 class="main-content">查询结果</h1> -->
+            <!-- <font size="6"><b>本科</b></font> -->
+            <font size="4">
+                <table border="1" width="90%" cellspacing="1" cellpadding="4" bgcolor="#262626" align="center">
+                    <tr bgcolor="2A244F">
+                        <th>书名</th>
+                        <th>类别</th>
+                        <th>作者</th>
+                        <th>出版社</th>
+                        <th>版本</th>
+                        <th>状态</th>
+                    </tr>
+                    <tr>
+                        <td>金色梦乡</td>
+                        <td>剧情</td>
+                        <td>伊坂幸太郎</td>
+                        <td>天空之境出版社</td>
+                        <td>2017</td>
+                        <td>可借</td>
+                    <tr>
+                        <td>金色梦乡</td>
+                        <td>剧情</td>
+                        <td>伊坂幸太郎</td>
+                        <td>天空之境出版社</td>
+                        <td>2017</td>
+                        <td>可借</td>
+                    </tr>
+                    <tr>
+                        <td>金色梦乡</td>
+                        <td>悬疑</td>
+                        <td>伊坂幸太郎</td>
+                        <td>天空之境出版社</td>
+                        <td>2017</td>
+                        <td>可借</td>
+                    </tr>
+                    <tr>
+                        <td>金色梦乡</td>
+                        <td>剧情</td>
+                        <td>伊坂幸太郎</td>
+                        <td>我们出版社</td>
+                        <td>2017</td>
+                        <td>可借</td>
+                    </tr>
+
+                </table>
+            </font>
+
+        </div>
+    </section>
+
+</body>
+
+</html>
+
+
+
+
+
+<!-- <div style="color:#0000FF">
+        <h1 class="intro">基本信息</h1>
+        <hr />
+        <table border="1">
+            <tr>
+                <th>姓名</th>
+                <td>XXX</td>
+            </tr>
+            <tr>
+                <th>专业</th>
+                <td>图书情报</td>
+            </tr>
+            <tr>
+                <th>学位</th>
+                <td>专业硕士</td>
+            </tr>
+            <tr>
+                <th>学校</th>
+                <td>XX大学</td>
+            </tr>
+            <tr>
+                <th>入学年份</th>
+                <td>2017</td>
+            </tr>
+        </table>
+    </div>
+ -->
+
+
+<!-- <div>
+        <font size="5"><b>硕士</b></font>
+        <table border="1">
+            <tr>
+                <th>专业</th>
+                <th>学校</th>
+                <th>学位</th>
+                <th>入学年份</th>
+                <th>毕业年份</th>
+            </tr>
+            <tr>
+                <td>图书情报</td>
+                <td>XX大学</td>
+                <td>管理学硕士</td>
+                <td>2017</td>
+                <td>2020</td>
+        </table>
+    </div> -->

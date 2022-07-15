@@ -22,6 +22,8 @@ app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
+access=""
+
 app.config['ADMIN_NAME'] = 'admin'
 app.config['ADMIN_PWD'] = '123456'
 app.config['ADMIN_ID'] = '0'
@@ -92,21 +94,25 @@ def before_request():
     if 'user_id' in session:
         g.user = session['user_id']
 
-#欢迎界面
-@app.route("/")
-def index():
-    #return jsonify({"success": False})
-    return render_template('index.html')
+# #欢迎界面
+# @app.route("/")
+# def index():
+#     #return jsonify({"success": False})
+#     return render_template('index.html')
 
 #登录界面
 @app.route('/login', methods=['POST'])
 def login():
     error = None
+    global access
     if request.json['username'] == app.config["ADMIN_NAME"]:
         if request.json['password'] != app.config['ADMIN_PWD']:
             error = 'Invalid password'
         else:
             session['user_id'] = app.config['ADMIN_ID']
+            
+            access="admin"
+            
             return jsonify({"identity": "admin", "success": True})
             #return redirect(url_for('admin'))
     else:
@@ -117,27 +123,41 @@ def login():
             error = 'Invalid password'
         else:
             session['user_id'] = student.student_id
+            access="user"
             return jsonify({"identity": "user", "success": True})
             #return redirect(url_for('student'))
-    return jsonify({"identity": "user", "success": False})
+    access="wrong_authority"
+    return jsonify({"identity": "wrong_authority", "success": False})
     #return render_template('login.html', error=error)
 
-#登出界面
-@app.route('/logout')
+@app.route('/currentUser',methods=['GET'])
+def get_current_User_authority():
+    print(access)
+    if access != "":
+        return jsonify({"success": "true","data":{"name":access,\
+            "avatar": 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',"access":access}})
+    elif access == "wrong_authority":
+        return jsonify({"success": "false","data":{"access":""}})
+    else:
+        return jsonify({"success": "false","data":{"access":""}})
+
+@app.route('/login/outLogin')
 def logout():
+    global access
+    access=""
+    print("logout")
     session.pop('user_id', None)
-    return jsonify({"success": True})
-    #return redirect(url_for('index'))
+    return jsonify({"data":{},"success": "true"})
 
-#管理员界面
-@app.route('/admin')
-def admin():
-    return render_template('admin.html')
+# #管理员界面
+# @app.route('/admin')
+# def admin():
+#     return render_template('admin.html')
 
-#学生界面
-@app.route('/student')
-def student():
-    return render_template('student.html')
+# #学生界面
+# @app.route('/student')
+# def student():
+#     return render_template('student.html')
 
 
 #2.管理员模块
@@ -151,6 +171,7 @@ def admin_books():
 
 @app.route('/admin/book/<id>/', methods=['GET'])
 def admin_book(id):
+    print('234')
     book = Books.query.get(id)
     results = book_schema.dump(book)
     return jsonify(results)
@@ -447,28 +468,35 @@ def student_libcardModify():
     #return render_template('student_libcardModify.html', error=error)
 
 #4.检索
-@app.route('/search', methods=['GET', 'POST'])
+#4.检索
+@app.route('/search', methods=['POST'])
 def reader_query():
     # reader_judge()
     error = None
     books = None
+    print(request.json)
     if request.method == 'POST':
         if request.json['bookID'] or request.json['title'] or request.json['authors'] or request.json['categories']:
-            # books = Books.query.filter(or_(Books.bookID==request.json['bookID'],
-            #                         Books.categories==request.json['categories'],
-            #                         Books.title.like(('%{}%').format(request.json['title'])),
-            #                         Books.authors.like(('%{}%').format(request.json['authors']))
-            #                                )).all()
-            # data = books_schema.dump(books)
             limit = 20
             books1 = Books.query.filter((Books.bookID == request.json['bookID'])).all()
-            books2 = Books.query.filter(and_(Books.categories.like(('%{}%').format(request.json['categories'])),
-                                    Books.title.like(('%{}%').format(request.json['title'])),
-                                    Books.authors.like(('%{}%').format(request.json['authors']))
-                                           )).order_by(Books.average_rating.desc()).limit(limit).all()
+            books2 = Books.query.filter(
+                                        or_(Books.categories.like(('%{}%').format(request.json['categories'])),
+                                            Books.title.like(('%{}%').format(request.json['title'])),
+                                            Books.authors.like(('%{}%').format(request.json['authors']))
+                                           )).order_by(
+                                        (
+                                            Books.categories.like(('%{}%').format(request.json['categories'])) +
+                                            Books.title.like(('%{}%').format(request.json['title'])) +
+                                            Books.authors.like(('%{}%').format(request.json['authors'])) +
+                                            (Books.categories == request.json['categories']) * 2 +
+                                            (Books.title == request.json['title']) * 2 +
+                                            (Books.authors == request.json['authors']) * 2
+                                        )
+                                    .desc()).limit(limit).all()
             data1 = books_schema.dump(books1)
             data2 = books_schema.dump(books2)
             data = data1 + data2
+            # data=data1
             #sqlcmd = ('select * from books where bookID LIKE %{}%').format(request.form['bookID'])
             results = {
                 "success": True,

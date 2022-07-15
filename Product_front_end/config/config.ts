@@ -8,14 +8,26 @@ import routes from './routes';
 const { REACT_APP_ENV } = process.env;
 
 export default defineConfig({
+  headScripts: [],
+  links: [{href: "https://cdn.jsdelivr.net/npm/shorthandcss@1.1.1/dist/shorthand.min.css", rel: "stylesheet"},
+    {rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css?family=Muli:200,300,400,500,600,700,800,900&display=swap"},
+    {rel:"stylesheet",type:"text/css",
+    href:"https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"},
+    {rel:"stylesheet",type:"text/css",href:"//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"}],
+  
+  metas: [{charSet:"UTF-8"},{name:"viewport",content: "width=device-width, initial-scale=1.0"}],
   hash: true,
-  antd: {},
+  antd: {
+    dark: true,
+    compact: true,
+  },
   request: {},
   initialState: {},
   model: {},
   layout: {
     // https://umijs.org/zh-CN/plugins/plugin-layout
-    locale: true,
+    locale: false,
     siderWidth: 208,
     ...defaultSettings,
   },

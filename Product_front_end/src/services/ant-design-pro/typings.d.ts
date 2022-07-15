@@ -2,6 +2,27 @@
 /* eslint-disable */
 
 declare namespace API {
+  type Book_search_options = {
+    bookID?: number | -1;
+    title?: string | " ";
+    authors?:string | " ";
+    categories?:string | " ";
+  }
+
+
+  type Book_info={
+    bookID?:number;
+    title?:string;
+    authors?:string;
+    isbn?:string;
+    categories?:string;
+    description?:string;
+    publication_date?:number;
+    average_rating?:string;
+    num_pages?:number;
+    rating_count?:number;
+  };
+
   type CurrentUser = {
     name?: string;
     avatar?: string;

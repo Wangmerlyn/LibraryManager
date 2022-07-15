@@ -14,6 +14,9 @@ const Settings: LayoutSettings & {
   "pwa": false,
   "headerHeight": 56,
   "headerTheme" : 'dark',
+  "menu":{
+    locale: false,
+  },
 };
 
 export default Settings;

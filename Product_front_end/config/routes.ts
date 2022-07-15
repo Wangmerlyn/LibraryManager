@@ -1,10 +1,12 @@
-﻿export default [
+﻿import component from "@/locales/bn-BD/component";
+
+export default [
   {
     path: '/user',
     layout: false,
     routes: [
       {
-        name: 'login',
+        name: '登录',
         path: '/user/login',
         component: './User/Login',
       },
@@ -15,42 +17,54 @@
   },
   {
     path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
+    name: '欢迎',
+    icon: 'home',
     component: './Welcome',
   },
   {
     path: '/admin',
-    name: 'admin',
+    name: '管理员界面',
     icon: 'crown',
     access: 'canAdmin',
     routes: [
       {
-        path: '/admin/sub-page',
-        name: 'sub-page',
+        path: '/admin/book',
+        name: '书籍管理',
         icon: 'smile',
-        component: './Welcome',
+        component: './Book',
       },
+      // {
+      //   path: '/admin/example',
+      //   name: '例子',
+      //   icon: 'smile',
+      //   component: './TableList',
+      // },
       {
         component: './404',
       },
     ],
   },
   {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
+    path: '/user/book',
+    name: '书籍查询',
+    icon: 'book',
+    component: './Book',
+  },
+  {
+    path: '/about_us',
+    name: '关于我们',
+    icon: 'smile',
+    component: './About_us',
+  },
+  {
+    path: '/features',
+    name: '特点',
+    icon: 'star',
+    component: './Features',
   },
   {
     path: '/',
     redirect: '/welcome',
-  },
-  {
-    path: '/search/info',
-    icon: 'table',
-    name: '图书信息界面',
-    component: './Info',
   },
   {
     component: './404',

@@ -17,20 +17,25 @@ export type GlobalHeaderRightProps = {
  * 退出登录，并且将当前的 url 保存
  */
 const loginOut = async () => {
-  await outLogin();
-  const { search, pathname } = history.location;
-  const urlParams = new URL(window.location.href).searchParams;
-  /** 此方法会跳转到 redirect 参数所在的位置 */
-  const redirect = urlParams.get('redirect');
-  // Note: There may be security issues, please note
-  if (window.location.pathname !== '/user/login' && !redirect) {
-    history.replace({
-      pathname: '/user/login',
-      search: stringify({
-        redirect: pathname + search,
-      }),
-    });
+  const outloginmsg = await outLogin();
+  console.log("outlogin msg")
+  console.log(outloginmsg)
+  if (outloginmsg["success"] == 'true'){
+    history.push("/refresh_your_web")
   }
+  // const { search, pathname } = history.location;
+  // const urlParams = new URL(window.location.href).searchParams;
+  // /** 此方法会跳转到 redirect 参数所在的位置 */
+  // const redirect = urlParams.get('redirect');
+  // // Note: There may be security issues, please note
+  // if (window.location.pathname !== '/user/login' && !redirect) {
+  //   history.replace({
+  //     pathname: '/user/login',
+  //     search: stringify({
+  //       redirect: pathname + search,
+  //     }),
+  //   });
+  // }
 };
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
@@ -44,7 +49,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         loginOut();
         return;
       }
-      history.push(`/account/${key}`);
+      // history.push(`/account/${key}`);
     },
     [setInitialState],
   );

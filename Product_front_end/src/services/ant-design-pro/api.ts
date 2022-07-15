@@ -15,14 +15,14 @@ export async function currentUser(options?: { [key: string]: any }) {
 /** 退出登录接口 POST /api/login/outLogin */
 export async function outLogin(options?: { [key: string]: any }) {
   return request<Record<string, any>>('/api/login/outLogin', {
-    method: 'POST',
+    method: 'GET',
     ...(options || {}),
   });
 }
 
 /** 登录接口 POST /api/login/account */
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/api/login/account', {
+  return request<API.LoginResult>('/api/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,13 +32,39 @@ export async function login(body: API.LoginParams, options?: { [key: string]: an
   });
 }
 
+export async function Get_all_books(
+) {
+  return request<API.Book_info>('/api/admin/book', {
+    method: 'GET',
+  })
+}
+
+export async function Get_book_from_id(
+  id: string
+) {
+  const url = `/api/admin/book/${id}`
+  return request<API.Book_info>(url, {
+    method: 'GET',
+  })
+}
+
+export async function search_books(body:API.Book_search_options,options?: { [key: string]: any }) {
+  return request<API.Book_info>('/api/search',{
+    method: 'POST',
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 此处后端没有提供注释 GET /api/notices */
 export async function getNotices(options?: { [key: string]: any }) {
   return request<API.NoticeIconList>('/api/notices', {
     method: 'GET',
+
     ...(options || {}),
   });
 }
+
 
 /** 获取规则列表 GET /api/rule */
 export async function rule(
